@@ -11,15 +11,16 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import domainClasses.user;
+import domainClasses.userServices;
 
 /**
  *
  * @author 686623
  */
 public class LoginServlet extends HttpServlet {
-
    
-   
+ 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -36,22 +37,22 @@ public class LoginServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-    
-        UserService(request, response);
- 
-    }
-    
-    protected void UserService(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException{
-        
         String userName = request.getParameter("uName");
         String passWord = request.getParameter("pWord");
-        request.setAttribute("username", userName);
-        request.setAttribute("password", passWord);
         
-        boolean valid = login(userName,passWord);
+        userServices uS = new userServices();
         
-         if(valid == true)
+        user u = new user();
+        u.setUsername(request.getParameter("uName"));
+        u.setPassword(request.getParameter("pWord"));
+       
+     //   request.setAttribute("username", u.getUsername());
+     //   request.setAttribute("password", u.getPassword());
+     request.setAttribute("user", u);
+        
+   
+     
+     if( uS.login(u) == true)
         {
            
            request.setAttribute("helloMessage", "Hello, " + userName );
@@ -68,37 +69,5 @@ public class LoginServlet extends HttpServlet {
         }
         
     }
-    
-    
-    
-    protected boolean login(String userName, String passWord){
-        boolean valid = false;
-        
-        String validUserName1 = "adam";
-        String validUserName2 = "betty";
-        String validPassword = "password";
-        
-        if(userName.equalsIgnoreCase(validUserName1) && passWord.equalsIgnoreCase(validPassword)
-                || userName.equalsIgnoreCase(validUserName2) && passWord.equalsIgnoreCase(validPassword))
-        {
-            
-            return valid = true;
-        }
-        else
-        {
-            return valid;
-        }
-       
-        
-        
-       
-        
-        
-        
-        
-     
     }
 
-    
-   
-}

@@ -19,8 +19,7 @@ public class user implements Serializable{
     
 
     public user() {
-        username = "";
-        password = "";
+   
     }
 
     public user(String name, String month) {
@@ -44,7 +43,4 @@ public class user implements Serializable{
     public void setPassword(String password) {
         this.password = password;
     }
-
-    
-    
 }
